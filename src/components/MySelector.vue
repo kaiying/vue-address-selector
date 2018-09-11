@@ -1,7 +1,7 @@
 <template>
-        <select class="form-control" @change="exportSelected" v-model="select">
-            <option v-for="(item, index) in items" :value="index">{{item.name}}</option>
-        </select>
+  <select class="form-control" @change="exportSelected" v-model="select">
+      <option v-for="(item, index) in items" :value="index" :key="index">{{item.name}}</option>
+  </select>
 </template>
 
 <script>
@@ -9,7 +9,6 @@
 export default {
   name: 'MySelector',
   props: {
-    parent: String,
     value: Number,
     items: Array,
   },
@@ -21,6 +20,11 @@ export default {
   methods: {
     exportSelected() {
       this.$emit('my-select-change', this.select);
+    },
+  },
+  watch: {
+    value() {
+      this.select = this.value;
     },
   },
 };

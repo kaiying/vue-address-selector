@@ -1,21 +1,20 @@
 <template>
   <div id="app" class="container">
     <div class="row">
-    <div class="col-md-4 input-group">
-          <my-selector @my-select-change="getCity" v-model="city" v-bind:items="cities"></my-selector>
-    </div>
-    <div class="col-md-4 input-group">
-    <my-selector @my-select-change="getDistrict" :value="changeDist" v-bind:items="dist"></my-selector>
-    </div>
+      <div class="col-md-4 input-group">
+        <my-selector @my-select-change="getCity" v-model="city" :items="sourceCities"></my-selector>
+      </div>
+      <div class="col-md-4 input-group">
+        <my-selector  @my-select-change="getDistrict" v-model="district" :items="sourceDist" :value="district"></my-selector>
+      </div>
     <div class="col-md-4">
-    <span>{{zip}}</span>
+      <span>{{zip}}</span>
     </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import MySelector from './components/MySelector.vue';
 
 const cities = [
@@ -65,18 +64,17 @@ export default {
     return {
       city: 0,
       district: 0,
-      sub: 0,
       cities,
-      dist: cities,
       zip: '',
     };
   },
   computed: {
-    changeDist() {
-      this.dist = cities[this.city].areas;
-      this.district = 0;
+    sourceCities() {
       this.getZip(0);
-      return this.city;
+      return cities;
+    },
+    sourceDist() {
+      return cities[this.city].areas;
     },
   },
   methods: {
@@ -88,7 +86,12 @@ export default {
       this.getZip(value);
     },
     getZip(value) {
-      this.zip = this.dist[value].zip;
+      this.zip = cities[this.city].areas[value].zip;
+    },
+  },
+  watch: {
+    city() {
+      this.district = 0;
     },
   },
 };
