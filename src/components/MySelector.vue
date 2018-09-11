@@ -1,6 +1,6 @@
 <template>
   <select class="form-control" @change="exportSelected" v-model="select">
-      <option v-for="(item, index) in items" :value="index" :key="index">{{item.name}}</option>
+    <option v-for="(item, index) in items" :value="index" :key="index">{{item.name}}</option>
   </select>
 </template>
 
