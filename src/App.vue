@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import MySelector from './components/MySelector.vue';
-import { API } from './env.js';
 import axios from 'axios';
-
+import MySelector from './components/MySelector.vue';
+import { API } from './env';
 
 export default {
   name: 'app',
